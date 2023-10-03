@@ -7,7 +7,8 @@
   <arg name="arduino_pins"        default="[]"    />
   <arg name="rcin_pins"           default="[]"    />
   <arg name="rcout_pins"          default="[]"    />
-  <arg name="system_id"          default="255"    />
+  <arg name="system_id"           default="255"    />
+	<arg name="frame_id"            default="vectornav"/>
 
   <rosparam param="run"           subst_value="true">$(arg run)</rosparam>
   <rosparam param="stream_rate"   subst_value="true">$(arg stream_rate)</rosparam>
@@ -22,6 +23,11 @@
 	<param name="system_id" value="$(arg system_id)" />
   </node>
 
+	<node pkg="vectornav" type="vnpub" name="vectornav" output="screen" >
+	  <param name="frame_id" value="$(arg frame_id)"/>
+    <rosparam command="load" file="$(find vectornav)/params/vn200.yaml" />
+	</node>	
+
   <node pkg="rosservice" type="rosservice" name="set_all_stream_rate"      args="call --wait /mavros/set_stream_rate 0 0 1"                   launch-prefix="bash -c 'sleep 11; $0 $@' "/>
   <node pkg="rosservice" type="rosservice" name="set_odom_stream_rate"     args="call --wait /mavros/set_stream_rate 3 $(arg stream_rate) 1"  launch-prefix="bash -c 'sleep 12; $0 $@' "/>
   <node pkg="rosservice" type="rosservice" name="set_rc_stream_rate"       args="call --wait /mavros/set_stream_rate 6 $(arg stream_rate) 1"  launch-prefix="bash -c 'sleep 13; $0 $@' "/>
@@ -29,6 +35,7 @@
   <node pkg="rosservice" type="rosservice" name="set_airspeed_stream_rate" args="call --wait /mavros/set_stream_rate 11 $(arg stream_rate) 1" launch-prefix="bash -c 'sleep 15; $0 $@' "/>
 
   <node pkg="dfti2" type="pixhawk_publisher"    name="pixhawk_publisher" output="screen" respawn="false" launch-prefix="bash -c 'sleep 16; $0 $@' "/>
+  <node pkg="dfti2" type="vectornav_publisher"    name="vectornav_publisher" output="screen" respawn="false" launch-prefix="bash -c 'sleep 16; $0 $@' "/>
 
   <node if="$(arg do_logging)" name="dfti" pkg="dfti2" type="dfti" output="screen" launch-prefix="bash -c 'sleep $(arg logging_start_delay); $0 $@' "/>
 </launch>
