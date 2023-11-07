@@ -1,0 +1,32 @@
+# Fully Combined Excitaions (WIP)
+# This will required 2 succesive send commands 
+
+#Command 1
+
+type:         [ 7,  14,  2,    7,    0,   0,     0,     0]  # IGNORE_CHANNEL = 0, OFFSET = 1, SQUARE = 2, SAWTOOTH = 3, SINE = 4, SINE_SWEEP = 5 THROTTLE_MAX_IDLE = 6 DOUBLET = 7 TRIPLET = 8 3211 = 9 
+period:       [ 1.0, 1.0,  15.0, 1.0, 0.0,  0.0,  0.0,  0.0]  # (sec)
+amplitude:    [ 68.0, 95.0, 0.0, 100.0, 0.0,   0.0,   0.0,   0.0]  # (% of throw (PWM value) in decemal form i.e. 0.12 = 12%)
+offset:       [1522.0, 1659.0, 1500.0, 1512.0,1500.0,2000.0,1000.0,1000.0]  # (% of throw (PWM value) in decemal form i.e. 0.12 = 12%)
+f0:           [  9.0,   14.0,   0.0,   10.0,   0.0,   0.0,   0.0,   0.0]  # (hz) intial frequency for sine sweep
+f1:           [  0.0,  0.0,   0.0,  0.0,   0.0,   0.0,   0.0,   0.0]  # (hz) final frequency for sine sweep
+k1:           [  3.0,  7.0,   1.0,  5.0,   1.0,   1.0,   1.0,   1.0]  # First sinusoidal component for Schroeder Sweep
+k2:           [  6.0,  14.0,   2.0,  10.0,   2.0,   2.0,   2.0,   2.0]  # Second sinusoidal component for Schroeder Sweep
+k3:           [  9.0,  21.0,   3.0,  15.0,   3.0,   3.0,   3.0,   3.0]  # Third sinusoidal component for Schroeder Sweep
+k4:           [  12.0, 28.0,   4.0,  20.0,  4.0,   4.0,   4.0,   4.0]  # Fourth sinusoidal component for Schroeder Sweep
+k5:           [  5.0,  5.0,   5.0,  5.0,   5.0,   5.0,   5.0,   5.0]  # Fifth sinusoidal component for Schroeder Sweep
+p1:           [  0.250,  0.250,   0.0,  0.250,   0.0,   0.0,   0.0,   0.0]  # Power fraction for first sinusoidal component for Schroeder Sweep
+p2:           [  0.250,  0.250,   0.0,  0.250,   0.0,   0.0,   0.0,   0.0]  # Power fraction for second sinusoidal component for Schroeder Sweep
+p3:           [  0.250,  0.250,   0.0,  0.250,   0.0,   0.0,   0.0,   0.0]  # Power fraction for third sinusoidal component for Schroeder Sweep
+p4:           [  0.250,  0.250,   0.0,  0.250,   0.0,   0.0,   0.0,   0.0]  # Power fraction for fourth sinusoidal component for Schroeder Sweep
+p5:           [  0.0,  0.0,   0.0,  0.0,   0.0,   0.0,   0.0,   0.0]  # Power fraction for fifth sinusoidal component for Schroeder Sweep
+M:            [  4.0,  4.0,   3.0,  4.0,   3.0,   3.0,   3.0,   3.0]  # Number of Sinsudoidal Componenets for the Schroeder Sweep (Should be either 3.0, 4.0, or 5.0 corresponding to 11,12,13 type)
+delay:        [   6.0,   0.0,   0.0,  8.0,   0.0,   0.0,   0.0,   0.0]  # (s) amount of time between intitating the disturbance and this channels signal start. Allows for offset signals.
+length:       [   1.0,   1.0,   1.0,   1.0,   1.0,   1.0,   1.0,   1.0]  # (Number of periods)
+arm_time_out_time: 60.0   # (s) The amount of time the system will wait for the pilot to initiate a disturbance after it was armed before it automatically disarms.
+trigger_channel: 8        # Transmitter channel which triggers the excitation. MUST BE >=8
+update_rate: 100.0        # (hz) The rate at which updates are sent.
+# SBUS Is required for this.
+# TODO add phase offset
+
+
+

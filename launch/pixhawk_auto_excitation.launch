@@ -1,0 +1,18 @@
+<launch>
+  <arg name="system_id"          default="255"    />
+  <arg name="stream_rate"         default="100"   />
+
+  <rosparam command="load" file="$(find dfti2)/param/auto_excitation.yaml" />
+
+  <node pkg="dfti2" type="auto_excitation" name="auto_excitation" required="true" output="screen" />
+
+<!--
+  <node pkg="mavros" type="mavros_node" name="mavros" required="true" output="screen">
+    <param name="system_id" value="$(arg system_id)" />
+  </node>
+-->
+  <node pkg="rosservice" type="rosservice" name="set_all_stream_rate"      args="call --wait /mavros/set_stream_rate 0 0 1"                   launch-prefix="bash -c 'sleep 11; $0 $@' "/>
+  <node pkg="rosservice" type="rosservice" name="set_odom_stream_rate"     args="call --wait /mavros/set_stream_rate 3 $(arg stream_rate) 1"  launch-prefix="bash -c 'sleep 12; $0 $@' "/>
+  <node pkg="rosservice" type="rosservice" name="set_rc_stream_rate"       args="call --wait /mavros/set_stream_rate 6 $(arg stream_rate) 1"  launch-prefix="bash -c 'sleep 13; $0 $@' "/>
+  <node pkg="rosservice" type="rosservice" name="set_airspeed_stream_rate" args="call --wait /mavros/set_stream_rate 11 $(arg stream_rate) 1" launch-prefix="bash -c 'sleep 14; $0 $@' "/>
+</launch>
